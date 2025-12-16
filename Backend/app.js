@@ -30,6 +30,7 @@ app.use((req, res, next) => {
 // routes
 
 app.use("/api", routes);
+
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
