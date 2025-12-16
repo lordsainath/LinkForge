@@ -6,6 +6,7 @@ const logger = createLogger("app.js");
 
 const app = express();
 const routes = require("./src/routes/index");
+const errorMiddleware = require("./src/middlewares/error.middleware");
 
 // global middlewares
 app.use(express.json());
@@ -42,13 +43,5 @@ app.use((req, res) => {
 });
 
 // globar error handler
-app.use((err, req, res, next) => {
-  logger.error(err.message, err);
-
-  res.status(err.statusCode || 500).json({
-    success: false,
-    message: err.message || "Internal Server Error",
-  });
-});
-
+app.use(errorMiddleware)
 module.exports = app;
