@@ -4,11 +4,12 @@ const {
   getMyUrls,
   redirectToOriginal,
 } = require("../controllers/url.controller");
+const authMiddleware = require("../middlewares/auth.middleware");
 const router = express.Router();
 
 // protected
-router.post("/", createShortUrl);
-router.get("/me", getMyUrls);
+router.post("/", authMiddleware,createShortUrl);
+router.get("/me", authMiddleware,getMyUrls);
 
 // public
 router.get("/:shortCode", redirectToOriginal);
