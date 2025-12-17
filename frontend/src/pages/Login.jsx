@@ -1,17 +1,28 @@
 import React from "react";
 import Logo from "../components/ui/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import api from "../services/api";
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const res = await api.post("/auth/login", data);
+      const token = res.data.data.token;
+
+
+      localStorage.setItem("token", token);
+       navigate("/dashboard");
+    } catch (error) {
+      console.error(error.response?.data?.message || "Login failed");
+    }
   };
 
   return (
