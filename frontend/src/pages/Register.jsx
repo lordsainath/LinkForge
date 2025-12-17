@@ -1,8 +1,15 @@
-import React from "react";
 import Logo from "../components/ui/Logo";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
+  const { register, handleSubmit, formState } = useForm();
+  const { isSubmitting } = formState;
+
+  const onsubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
       {/* Page wrapper */}
@@ -20,7 +27,7 @@ const Register = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form onSubmit={handleSubmit(onsubmit)} className="space-y-5">
           {/* Full Name */}
           <div className="flex flex-col space-y-1">
             <label htmlFor="name" className="text-sm font-medium">
@@ -28,7 +35,8 @@ const Register = () => {
             </label>
             <input
               type="text"
-              name="name"
+              required
+              {...register("name")}
               placeholder="John Doe"
               className="
                   w-full px-4 py-3 rounded-lg
@@ -47,7 +55,8 @@ const Register = () => {
             </label>
             <input
               type="email"
-              name="email"
+              required
+              {...register("email")}
               placeholder="you@example.com"
               className="
                   w-full px-4 py-3 rounded-lg
@@ -66,7 +75,8 @@ const Register = () => {
             </label>
             <input
               type="password"
-              name="password"
+              required
+              {...register("password")}
               placeholder="••••••••"
               className="
                   w-full px-4 py-3 rounded-lg
@@ -83,14 +93,16 @@ const Register = () => {
 
           {/* Button */}
           <button
+            type="submit"
+            disabled={isSubmitting}
             className="
                 w-full text-white cursor-pointer px-5 py-3 rounded-lg
-                bg-gradient-to-r from-blue-500 to-teal-400
+                bg-linear-to-r from-blue-500 to-teal-400
                 hover:from-blue-600 hover:to-teal-500
                 transition
               "
           >
-            Create Account
+            {isSubmitting ? "Creating..." : "Create Account"}
           </button>
 
           {/* Login */}

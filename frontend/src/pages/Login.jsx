@@ -1,8 +1,16 @@
 import React from "react";
 import Logo from "../components/ui/Logo";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const { register, handleSubmit, formState } = useForm();
+  const { isSubmitting } = formState;
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
       {/* Page wrapper */}
@@ -20,7 +28,7 @@ const Login = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Email */}
           <div className="flex flex-col space-y-1">
             <label htmlFor="email" className="text-sm font-medium">
@@ -28,7 +36,8 @@ const Login = () => {
             </label>
             <input
               type="email"
-              name="email"
+              required
+              {...register("email")}
               placeholder="you@example.com"
               className="
                   w-full px-4 py-3 rounded-lg
@@ -46,9 +55,11 @@ const Login = () => {
               Password
             </label>
             <input
+              required
               type="password"
               name="password"
               placeholder="••••••••"
+              {...register("password")}
               className="
                   w-full px-4 py-3 rounded-lg
                   border border-gray-200 bg-gray-50
@@ -61,14 +72,16 @@ const Login = () => {
 
           {/* Button */}
           <button
+            type="submit"
+            disabled={isSubmitting}
             className="
                 w-full text-white cursor-pointer px-5 py-3 rounded-lg
-                bg-gradient-to-r from-blue-500 to-teal-400
+                bg-linear-to-r from-blue-500 to-teal-400
                 hover:from-blue-600 hover:to-teal-500
                 transition
               "
           >
-            Login
+            {isSubmitting ? "Logging in..." : "Login"}
           </button>
 
           {/* Register link */}
