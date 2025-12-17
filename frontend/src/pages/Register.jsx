@@ -1,16 +1,23 @@
 import Logo from "../components/ui/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import api from "../services/api";
 
 const Register = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onsubmit = (data) => {
-    console.log(data);
+  const onsubmit = async (data) => {
+    try {
+      await api.post("/auth/register", data);
+      navigate("/login");
+    } catch (error) {
+      error.response?.data?.message || "Registration failed";
+    }
   };
 
   return (
