@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import api from "../services/api";
 import CreateUrlModal from "../components/url/CreateUrlModal";
 import UrlDisplay from "../components/url/urlDisplay";
 
 
 const Dashboard = () => {
+  const navigate = useNavigate()
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
@@ -24,6 +26,11 @@ const Dashboard = () => {
     fetchUserData();
   }, []);
 
+  const handleLogout = ()=>{
+    localStorage.removeItem('token');
+    navigate('/login')
+  }
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">My Links</h1>
@@ -32,6 +39,12 @@ const Dashboard = () => {
         className="bg-black text-white px-4 py-2 rounded"
       >
         Create Link
+      </button>
+      <button
+        onClick={handleLogout}
+        className="bg-black text-white px-4 py-2 rounded"
+      >
+        Logout
       </button>
 
       {open && (
