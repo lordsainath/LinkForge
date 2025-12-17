@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const { register, handleSubmit, formState } = useForm();
-  const { isSubmitting } = formState;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -36,8 +39,7 @@ const Login = () => {
             </label>
             <input
               type="email"
-              required
-              {...register("email")}
+              {...register("email", { required: "Email is required" })}
               placeholder="you@example.com"
               className="
                   w-full px-4 py-3 rounded-lg
@@ -47,6 +49,9 @@ const Login = () => {
                   focus:ring-blue-500 focus:border-blue-500
                 "
             />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -55,11 +60,10 @@ const Login = () => {
               Password
             </label>
             <input
-              required
               type="password"
               name="password"
               placeholder="••••••••"
-              {...register("password")}
+              {...register("password", { required: "Password is required" })}
               className="
                   w-full px-4 py-3 rounded-lg
                   border border-gray-200 bg-gray-50
@@ -68,6 +72,9 @@ const Login = () => {
                   focus:ring-blue-500 focus:border-blue-500
                 "
             />
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password.message}</p>
+            )}
           </div>
 
           {/* Button */}

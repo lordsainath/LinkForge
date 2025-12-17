@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const { register, handleSubmit, formState } = useForm();
-  const { isSubmitting } = formState;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   const onsubmit = (data) => {
     console.log(data);
@@ -35,8 +38,7 @@ const Register = () => {
             </label>
             <input
               type="text"
-              required
-              {...register("name")}
+              {...register("name", { required: "Name is required" })}
               placeholder="John Doe"
               className="
                   w-full px-4 py-3 rounded-lg
@@ -46,6 +48,9 @@ const Register = () => {
                   focus:ring-blue-500 focus:border-blue-500
                 "
             />
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name.message}</p>
+            )}
           </div>
 
           {/* Email */}
@@ -55,8 +60,7 @@ const Register = () => {
             </label>
             <input
               type="email"
-              required
-              {...register("email")}
+              {...register("email", { required: "Email is required" })}
               placeholder="you@example.com"
               className="
                   w-full px-4 py-3 rounded-lg
@@ -66,6 +70,9 @@ const Register = () => {
                   focus:ring-blue-500 focus:border-blue-500
                 "
             />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -75,8 +82,7 @@ const Register = () => {
             </label>
             <input
               type="password"
-              required
-              {...register("password")}
+              {...register("password", { required: "Password is required" })}
               placeholder="••••••••"
               className="
                   w-full px-4 py-3 rounded-lg
@@ -86,6 +92,9 @@ const Register = () => {
                   focus:ring-blue-500 focus:border-blue-500
                 "
             />
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password.message}</p>
+            )}
             <span className="text-xs text-gray-500">
               Must be at least 8 characters
             </span>
