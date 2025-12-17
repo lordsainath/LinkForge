@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import CreateUrlModal from "../components/url/CreateUrlModal";
+import UrlDisplay from "../components/url/urlDisplay";
+
 
 const Dashboard = () => {
   const [userData, setUserData] = useState([]);
@@ -46,9 +48,7 @@ const Dashboard = () => {
       ) : (
         <ul className="space-y-2">
           {userData.map((url) => (
-            <li key={url._id}>
-              <p>Original URL: {url.originalUrl}</p>
-            </li>
+           <UrlDisplay key={url._id} url={url}/>
           ))}
         </ul>
       )}

@@ -21,36 +21,43 @@ const CreateUrlModal = ({ onClose, onSuccess }) => {
   };
 
   return (
-    <>
-      <div className="fixed inset-0 flex justify-center items-center bg-black/50">
-        <div className="bg-white rounded-lg p-6 w-full max-w-md">
-          <h2 className="text-xl font-bold mb-4">Create Short Link</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-              {...register("originalUrl", { required: true })}
-              placeholder="Paste long URL here"
-              className="border rounded px-3 py-2"
-            />
+    <div
+      className="fixed inset-0 flex justify-center items-center bg-black/50"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-lg p-6 w-full max-w-md"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="text-xl font-bold mb-4">Create Short Link</h2>
 
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <input
+            {...register("originalUrl", { required: true })}
+            placeholder="Paste long URL here"
+            className="border rounded px-3 py-2"
+          />
+
+          <div className="flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-black text-white rounded"
+              className="px-4 py-2 border rounded"
             >
-              cancel
+              Cancel
             </button>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 bg-black text-white rounded"
+              className="px-4 py-2 bg-black text-white rounded disabled:opacity-50"
             >
               {isSubmitting ? "Creating..." : "Create"}
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 
