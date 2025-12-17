@@ -31,6 +31,9 @@ const urlSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    qrCode: {
+      type: String,
+    },
 
     isActive: {
       type: Boolean,

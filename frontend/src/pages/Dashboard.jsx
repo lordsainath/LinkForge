@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import CreateUrlModal from "../components/url/CreateUrlModal";
 import UrlDisplay from "../components/url/urlDisplay";
-
+import LinksTable from "../components/links/LinksTable";
 
 const Dashboard = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
@@ -26,10 +26,10 @@ const Dashboard = () => {
     fetchUserData();
   }, []);
 
-  const handleLogout = ()=>{
-    localStorage.removeItem('token');
-    navigate('/login')
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <div className="p-6">
@@ -59,11 +59,7 @@ const Dashboard = () => {
       ) : userData.length === 0 ? (
         <p>No links found.</p>
       ) : (
-        <ul className="space-y-2">
-          {userData.map((url) => (
-           <UrlDisplay key={url._id} url={url}/>
-          ))}
-        </ul>
+        <LinksTable links={userData} />
       )}
     </div>
   );
