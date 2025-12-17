@@ -3,6 +3,7 @@ const apierror = require("../utils/apiError");
 const creatlogger = require("../lib/logger");
 const logger = creatlogger("url.service.js");
 const crypto = require("crypto");
+const QrCode = require("qrcode");
 
 const generateShortCode = () => {
   return crypto.randomBytes(4).toString("hex");
@@ -23,11 +24,15 @@ const createShortUrl = async ({ originalUrl, userId, baseUrl }) => {
 
   const shortUrl = `${baseUrl}/api/url/${shortCode}`;
 
+  const qrCode = await QrCode.toDataURL(shortUrl);
+
+
   const url = await urlModel.create({
     originalUrl,
     shortCode,
     shortUrl,
     userId: userId,
+    qrCode
   });
 
   return url;
