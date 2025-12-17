@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import PublicLayout from "./layouts/PublicLayout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
+import MyLinksPage from "./pages/MyLinksPage";
 
 const App = () => {
   return (
@@ -25,7 +26,7 @@ const App = () => {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/links" element={<Dashboard />} />
+          <Route path="/dashboard/links" element={<MyLinksPage />} />
           {/* <Route path="/dashboard/qr-codes" element={<QRCodes />} /> */}
         </Route>
       </Routes>

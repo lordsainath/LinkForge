@@ -6,14 +6,14 @@ const DashboardLayout = () => {
   return (
     <>
       <div className="flex h-screen bg-gray-50">
-        <aside className="w-64 bg-white border-r">
-            <Sidebar/>
+        <aside className="w-64 bg-white border-r border-r-gray-300">
+          <Sidebar />
         </aside>
 
         <div className="flex flex-col flex-1">
           {/* Header */}
           <header className="h-14 bg-white  px-6 flex items-center">
-            <DashboardHeader/>
+            <DashboardHeader />
           </header>
 
           {/* Page Content */}
